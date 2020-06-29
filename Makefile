@@ -101,12 +101,10 @@ container: clean-container .container-$(ARCH) ## Build image for a particular ar
 
 	echo "Building docker image ($(ARCH))..."
 	# buildx assumes images are multi-arch
-	docker buildx build \
+	docker build \
 		--pull \
-		--load \
 		--no-cache \
 		--progress plain \
-		--platform linux/$(ARCH) \
 		--build-arg BASE_IMAGE="$(BASE_IMAGE)-$(ARCH):$(BASE_TAG)" \
 		--build-arg VERSION="$(TAG)" \
 		-t $(REGISTRY)/nginx-ingress-controller-${ARCH}:$(TAG) $(TEMP_DIR)/rootfs

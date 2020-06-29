@@ -27,12 +27,9 @@ LABEL org.opencontainers.image.version="${VERSION}"
 
 WORKDIR  /etc/nginx
 
-RUN apk update \
-  && apk upgrade \
-  && apk add -U --no-cache \
+RUN microdnf install \
     diffutils \
-    libcap \
-  && rm -rf /var/cache/apk/*
+    libcap
 
 COPY --chown=www-data:www-data . /
 
