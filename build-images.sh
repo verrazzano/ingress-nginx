@@ -14,3 +14,10 @@ mkdir -p images/nginx/rootfs/stage-licenses
 cp LICENSE README.md THIRD_PARTY_LICENSES.txt images/nginx/rootfs/stage-licenses
 docker build --rm=true --tag=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx:${DOCKER_TAG} -f images/nginx/rootfs/Dockerfile.ol8-slim images/nginx/rootfs/
 rm -fr images/nginx/rootfs/stage-licenses
+
+
+mkdir -p images/custom-error-pages/rootfs/stage-licenses
+cp LICENSE README.md THIRD_PARTY_LICENSES.txt images/custom-error-pages/rootfs/stage-licenses
+make build container -e BASEIMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx:${DOCKER_TAG} -e TAG=${DOCKER_TAG} -e REGISTRY=${DOCKER_REPO} -C images/custom-error-pages/
+docker tag ${DOCKER_REPO}/${DOCKER_NAMESPACE}/custom-error-pages:${DOCKER_TAG} ${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx/custom-error-pages:${DOCKER_TAG}
+rm -fr images/custom-error-pages/rootfs/stage-licenses
