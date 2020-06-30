@@ -24,4 +24,4 @@ Build and Push Images
 # Build and push custom-error-pages
 
 # make build container -e BASEIMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx:${DOCKER_TAG} -e TAG=${DOCKER_TAG} -e REGISTRY=${DOCKER_REPO} -C images/custom-error-pages/
-# docker push ${DOCKER_REPO}/${DOCKER_NAMESPACE}/custom-error-pages:${DOCKER_TAG}
+# docker push ${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx/custom-error-pages:${DOCKER_TAG}
