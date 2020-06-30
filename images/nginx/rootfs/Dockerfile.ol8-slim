@@ -23,6 +23,8 @@ RUN /build.ol8-slim.sh
 # Use a multi-stage build
 FROM oraclelinux:8-slim
 
+COPY stage-licenses/* /license/
+
 ENV PATH=$PATH:/usr/local/luajit/bin:/usr/local/nginx/sbin:/usr/local/nginx/bin
 
 ENV LUA_PATH="/usr/local/share/luajit-2.1.0-beta3/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/lib/lua/?.lua;;"
@@ -37,7 +39,6 @@ COPY --from=builder /usr/local /usr/local
 COPY --from=builder /opt /opt
 COPY --from=builder /etc/nginx /etc/nginx
 
-COPY LICENSE README.md THIRD_PARTY_LICENSES.txt /license/
 
 RUN microdnf install  \
     openssl \

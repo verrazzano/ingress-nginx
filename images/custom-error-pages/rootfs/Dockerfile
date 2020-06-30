@@ -18,4 +18,6 @@ CROSS_BUILD_COPY qemu-QEMUARCH-static /usr/bin/
 
 COPY . /
 
+COPY stage-licenses/* /license/
+
 CMD ["/custom-error-pages"]
