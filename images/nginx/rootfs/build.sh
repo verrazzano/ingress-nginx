@@ -68,47 +68,60 @@ get_src()
   rm -rf "$f"
 }
 
-apk update
-apk upgrade
-
 # install required packages to build
-apk add \
-  bash \
+microdnf install bash \
   gcc \
+  gcc-c++ \
+  libstdc++ \
+  libstdc++-devel \
+  libstdc++-static \
   clang \
-  libc-dev \
+  glibc-devel \
   make \
+  cmake3 \
   automake \
-  openssl-dev \
-  pcre-dev \
-  zlib-dev \
-  linux-headers \
-  libxslt-dev \
-  gd-dev \
-  geoip-dev \
-  perl-dev \
-  libedit-dev \
+  openssl-devel \
+  pcre-devel \
+  genwqe-zlib-devel \
+  libxslt-devel \
+  gd-devel \
+  perl-devel \
+  libedit \
   mercurial \
-  alpine-sdk \
   findutils \
   curl ca-certificates \
-  geoip-dev \
   patch \
-  libaio-dev \
+  libaio-devel \
   openssl \
   cmake \
   util-linux \
-  lmdb-tools \
+  lmdb \
   wget \
-  curl-dev \
-  libprotobuf \
-  git g++ pkgconf flex bison doxygen yajl-dev lmdb-dev libtool autoconf libxml2 pcre-dev libxml2-dev \
-  python \
-  libmaxminddb-dev \
+  which \
+  libcurl-devel \
+  git pkgconf flex bison yajl lmdb libtool autoconf libxml2 pcre-devel libxml2-devel \
+  python38 \
+  libmaxminddb-devel \
   bc \
+  pkg-config \
   unzip \
   dos2unix mercurial \
-  yaml-cpp
+  libyaml
+
+rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoIP-1.5.0-13.el7.x86_64.rpm \
+  https://yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/GeoIP-devel-1.5.0-13.el7.x86_64.rpm
+
+rpm -iU https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/libnghttp2-1.33.0-3.el8_2.1.x86_64.rpm \
+  https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/gnutls-3.6.8-11.el8_2.x86_64.rpm
+
+
+#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/gnutls-dane-3.6.8-11.el8_2.x86_64.rpm \
+#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/gnutls-utils-3.6.8-11.el8_2.x86_64.rpm \
+#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/unbound-1.7.3-11.el8_2.x86_64.rpm \
+#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/unbound-libs-1.7.3-11.el8_2.x86_64.rpm \
+#  http://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/libevent-2.1.8-5.el8.x86_64.rpm \
+#  http://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/systemd-239-30.0.3.el8_2.x86_64.rpm
+
 
 mkdir -p /etc/nginx
 
@@ -609,8 +622,8 @@ writeDirs=( \
   /var/log/nginx \
 );
 
-addgroup -Sg 101 www-data
-adduser -S -D -H -u 101 -h /usr/local/nginx -s /sbin/nologin -G www-data -g www-data www-data
+/addgroup -Sg 101 www-data
+/adduser -S -D -H -u 101 -h /usr/local/nginx -s /sbin/nologin -G www-data -g www-data www-data
 
 for dir in "${writeDirs[@]}"; do
   mkdir -p ${dir};

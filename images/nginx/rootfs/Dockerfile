@@ -12,45 +12,55 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-FROM alpine:3.11 as builder
+FROM container-registry.oracle.com/os/oraclelinux:8-slim AS builder
 
 COPY . /
+COPY oracle-epel-ol8.repo /etc/yum.repos.d/
+COPY oracle-codeready-ol8.repo /etc/yum.repos.d/
 
-RUN apk add -U bash \
-  && /build.sh
+RUN /build.sh
 
 # Use a multi-stage build
-FROM alpine:3.11
+FROM container-registry.oracle.com/os/oraclelinux:8-slim
+
+COPY stage-licenses/* /license/
 
 ENV PATH=$PATH:/usr/local/luajit/bin:/usr/local/nginx/sbin:/usr/local/nginx/bin
 
 ENV LUA_PATH="/usr/local/share/luajit-2.1.0-beta3/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/lib/lua/?.lua;;"
 ENV LUA_CPATH="/usr/local/lib/lua/?/?.so;/usr/local/lib/lua/?.so;;"
 
+COPY oracle-epel-ol8.repo /etc/yum.repos.d/
+COPY addgroup /usr/sbin/
+COPY adduser /usr/sbin/
+COPY dumb-init /usr/bin/
+
 COPY --from=builder /usr/local /usr/local
 COPY --from=builder /opt /opt
 COPY --from=builder /etc/nginx /etc/nginx
 
-RUN apk update \
-  && apk upgrade \
-  && apk add -U --no-cache \
-    bash \
+
+RUN microdnf install  \
     openssl \
     pcre \
     zlib \
-    geoip \
+    lmdb \
     curl ca-certificates \
     patch \
     yajl \
-    lmdb \
+    libyaml \
     libxml2 \
     libmaxminddb \
-    yaml-cpp \
-    dumb-init \
     nano \
     tzdata \
+    pkg-config \
+  && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoIP-1.5.0-13.el7.x86_64.rpm \
+  && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/GeoIP-devel-1.5.0-13.el7.x86_64.rpm \
+  && rpm -iU https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/gnutls-3.6.8-11.el8_2.x86_64.rpm \
+  && rpm -iU https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/libnghttp2-1.33.0-3.el8_2.1.x86_64.rpm \
+  && chmod +x /usr/bin/dumb-init \
   && ln -s /usr/local/nginx/sbin/nginx /sbin/nginx \
+  && ln -s /usr/local/lib/libluajit-5.1.so.2 /lib64/libluajit-5.1.so.2 \
   && addgroup -Sg 101 www-data \
   && adduser -S -D -H -u 101 -h /usr/local/nginx \
     -s /sbin/nologin -G www-data -g www-data www-data \
