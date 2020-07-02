@@ -14,6 +14,4 @@ export DOCKER_TAG=<Image Tag>
 
 ```
 ./build-images.sh
-docker push ${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx:${DOCKER_TAG}
-docker push ${DOCKER_REPO}/${DOCKER_NAMESPACE}/custom-error-pages:${DOCKER_TAG}
 ```
