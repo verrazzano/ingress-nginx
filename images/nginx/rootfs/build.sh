@@ -114,15 +114,6 @@ rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoI
 rpm -iU https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/libnghttp2-1.33.0-3.el8_2.1.x86_64.rpm \
   https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/gnutls-3.6.8-11.el8_2.x86_64.rpm
 
-
-#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/gnutls-dane-3.6.8-11.el8_2.x86_64.rpm \
-#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/gnutls-utils-3.6.8-11.el8_2.x86_64.rpm \
-#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/unbound-1.7.3-11.el8_2.x86_64.rpm \
-#  http://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/unbound-libs-1.7.3-11.el8_2.x86_64.rpm \
-#  http://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/libevent-2.1.8-5.el8.x86_64.rpm \
-#  http://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/systemd-239-30.0.3.el8_2.x86_64.rpm
-
-
 mkdir -p /etc/nginx
 
 # Get the GeoIP data

@@ -39,7 +39,6 @@ COPY --from=builder /usr/local /usr/local
 COPY --from=builder /opt /opt
 COPY --from=builder /etc/nginx /etc/nginx
 
-
 RUN microdnf install  \
     openssl \
     pcre \
