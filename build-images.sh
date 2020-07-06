@@ -33,8 +33,8 @@ rm -fr images/custom-error-pages/rootfs/stage-licenses
 docker push ${CUSTOM_ERROR_PAGES_IMAGE}
 
 # Create the nginx-ingress-controller image
-# make ARCH=amd64 build container-e BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} -e BASE_TAG=${DOCKER_TAG} USE_DOCKER=false DIND_TASKS=false
-BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} BASE_TAG=${DOCKER_TAG} make ARCH=amd64 build container USE_DOCKER=false DIND_TASKS=false
+make ARCH=amd64 build container -e BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} -e BASE_TAG=${DOCKER_TAG} USE_DOCKER=false DIND_TASKS=false
+#BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} BASE_TAG=${DOCKER_TAG} make ARCH=amd64 build container USE_DOCKER=false DIND_TASKS=false
 docker push ${INGRESS_NGINX_DOCKER_BASE_IMAGE}:${DOCKER_TAG}
 
 # Remove symlink
