@@ -4,6 +4,7 @@ SCRIPT_DIR=$(cd $(dirname "$0"); pwd -P)
 INGRESS_NGINX_DOCKER_BASE_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx
 INGRESS_NGINX_DOCKER_IMAGE_AMD64=${INGRESS_NGINX_DOCKER_BASE_IMAGE}-amd64:${DOCKER_TAG}
 CUSTOM_ERROR_PAGES_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx/custom-error-pages:${DOCKER_TAG}
+INGRESS_NGINX_CONTROLLER_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx-controller:${DOCKER_TAG}
 
 set -ue
 
@@ -33,9 +34,9 @@ rm -fr images/custom-error-pages/rootfs/stage-licenses
 docker push ${CUSTOM_ERROR_PAGES_IMAGE}
 
 # Create the nginx-ingress-controller image
-make ARCH=amd64 build container -e BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} -e BASE_TAG=${DOCKER_TAG} USE_DOCKER=false DIND_TASKS=false
-#BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} BASE_TAG=${DOCKER_TAG} make ARCH=amd64 build container USE_DOCKER=false DIND_TASKS=false
-docker push ${INGRESS_NGINX_DOCKER_BASE_IMAGE}:${DOCKER_TAG}
+make ARCH=amd64 build container -e BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} -e BASE_TAG=${DOCKER_TAG} -e TAG=${DOCKER_TAG} -e REGISTRY=${DOCKER_REPO}/${DOCKER_NAMESPACE} USE_DOCKER=false DIND_TASKS=false
+docker tag ${DOCKER_REPO}/${DOCKER_NAMESPACE}/nginx-ingress-controller-amd64:${DOCKER_TAG} ${INGRESS_NGINX_CONTROLLER_IMAGE}
+docker push ${INGRESS_NGINX_CONTROLLER_IMAGE}
 
 # Remove symlink
 cd "${SCRIPT_DIR}"
