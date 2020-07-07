@@ -1,10 +1,10 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd -P)
-INGRESS_NGINX_DOCKER_BASE_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx
+INGRESS_NGINX_DOCKER_BASE_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/nginx-ingress
 INGRESS_NGINX_DOCKER_IMAGE_AMD64=${INGRESS_NGINX_DOCKER_BASE_IMAGE}-amd64:${DOCKER_TAG}
-CUSTOM_ERROR_PAGES_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx/custom-error-pages:${DOCKER_TAG}
-INGRESS_NGINX_CONTROLLER_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx-controller:${DOCKER_TAG}
+DEFAULT_BACKEND_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE}-default-backend
+CONTROLLER_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE}-controller
 
 set -ue
 
@@ -27,23 +27,18 @@ docker push ${INGRESS_NGINX_DOCKER_IMAGE_AMD64}
 # Build custom-error-pages and its modules from source
 mkdir -p images/custom-error-pages/rootfs/stage-licenses
 cp LICENSE README.md THIRD_PARTY_LICENSES.txt images/custom-error-pages/rootfs/stage-licenses
-make build container -e BASEIMAGE=${INGRESS_NGINX_DOCKER_IMAGE_AMD64} -e TAG=${DOCKER_TAG} -e REGISTRY=${DOCKER_REPO}/${DOCKER_NAMESPACE}/ingress-nginx -C images/custom-error-pages/
+make build container -e BASEIMAGE=${INGRESS_NGINX_DOCKER_IMAGE_AMD64} -e TAG=${DOCKER_TAG} -e REGISTRY=${DOCKER_REPO}/${DOCKER_NAMESPACE} -C images/custom-error-pages/
 rm -fr images/custom-error-pages/rootfs/stage-licenses
 
 # Push the custom-error-pages image
-docker push ${CUSTOM_ERROR_PAGES_IMAGE}
+docker tag ${DOCKER_REPO}/${DOCKER_NAMESPACE}/custom-error-pages:${DOCKER_TAG} ${DEFAULT_BACKEND_IMAGE}:${DOCKER_TAG}
+docker push ${DEFAULT_BACKEND_IMAGE}:${DOCKER_TAG}
 
 # Create the nginx-ingress-controller image
 make ARCH=amd64 build container -e BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} -e BASE_TAG=${DOCKER_TAG} -e TAG=${DOCKER_TAG} -e REGISTRY=${DOCKER_REPO}/${DOCKER_NAMESPACE} USE_DOCKER=false DIND_TASKS=false
-docker tag ${DOCKER_REPO}/${DOCKER_NAMESPACE}/nginx-ingress-controller-amd64:${DOCKER_TAG} ${INGRESS_NGINX_CONTROLLER_IMAGE}
-docker push ${INGRESS_NGINX_CONTROLLER_IMAGE}
+docker tag ${CONTROLLER_IMAGE}-amd64:${DOCKER_TAG} ${CONTROLLER_IMAGE}:${DOCKER_TAG}
+docker push ${CONTROLLER_IMAGE}:${DOCKER_TAG}
 
 # Remove symlink
 cd "${SCRIPT_DIR}"
 rm "${GOPATH}"/src/k8s.io/ingress-nginx
-
-
-
-
-
-
