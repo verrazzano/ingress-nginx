@@ -34,6 +34,7 @@ docker push ${CUSTOM_ERROR_PAGES_IMAGE}
 
 # Create the nginx-ingress-controller image
 make ARCH=amd64 build container -e BASE_IMAGE=${INGRESS_NGINX_DOCKER_BASE_IMAGE} -e BASE_TAG=${DOCKER_TAG} -e TAG=${DOCKER_TAG} -e REGISTRY=${DOCKER_REPO}/${DOCKER_NAMESPACE} USE_DOCKER=false DIND_TASKS=false
+docker tag ${DOCKER_REPO}/${DOCKER_NAMESPACE}/nginx-ingress-controller-amd64:${DOCKER_TAG} ${INGRESS_NGINX_DOCKER_BASE_IMAGE}:${DOCKER_TAG}
 docker push ${INGRESS_NGINX_DOCKER_BASE_IMAGE}:${DOCKER_TAG}
 
 # Remove symlink
