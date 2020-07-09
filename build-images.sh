@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright (C) 2020, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd -P)
 INGRESS_NGINX_DOCKER_BASE_IMAGE=${DOCKER_REPO}/${DOCKER_NAMESPACE}/nginx-ingress
 INGRESS_NGINX_DOCKER_IMAGE_AMD64=${INGRESS_NGINX_DOCKER_BASE_IMAGE}-amd64:${DOCKER_TAG}
