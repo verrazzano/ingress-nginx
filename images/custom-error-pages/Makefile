@@ -28,7 +28,7 @@ endif
 ARCH ?= $(shell go env GOARCH)
 GOARCH = ${ARCH}
 
-BASEIMAGE?=oraclelinux:7-slim
+BASEIMAGE?=container-registry.oracle.com/os/oraclelinux:7-slim
 
 ALL_ARCH = amd64 arm arm64
 
