@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM container-registry.oracle.com/os/oraclelinux:8-slim AS builder
+FROM container-registry.oracle.com/os/oraclelinux:8-slim@sha256:f8326394afd5bec6260f3445b1911ecfd79b5f0fa3333036916a6779d53d9411 AS builder
 
 COPY . /
 COPY oracle-epel-ol8.repo /etc/yum.repos.d/
@@ -21,7 +21,7 @@ COPY oracle-codeready-ol8.repo /etc/yum.repos.d/
 RUN /build.sh
 
 # Use a multi-stage build
-FROM container-registry.oracle.com/os/oraclelinux:8-slim
+FROM container-registry.oracle.com/os/oraclelinux:8-slim@sha256:f8326394afd5bec6260f3445b1911ecfd79b5f0fa3333036916a6779d53d9411
 
 COPY stage-licenses/* /license/
 
