@@ -67,6 +67,9 @@ REGISTRY ?= quay.io/kubernetes-ingress-controller
 BASE_IMAGE ?= quay.io/kubernetes-ingress-controller/nginx
 BASE_TAG ?= 5d67794f4fbf38ec6575476de46201b068eabf87
 
+CONTROLLER_IMAGE_NAME ?= nginx-ingress-controller
+
+
 GOARCH=$(ARCH)
 GOBUILD_FLAGS := -v
 
@@ -110,7 +113,7 @@ container: clean-container .container-$(ARCH) ## Build image for a particular ar
 		--progress plain \
 		--build-arg BASE_IMAGE="$(BASE_IMAGE)-$(ARCH):$(BASE_TAG)" \
 		--build-arg VERSION="$(TAG)" \
-		-t $(REGISTRY)/nginx-ingress-controller-${ARCH}:$(TAG) $(TEMP_DIR)/rootfs
+		-t $(REGISTRY)/${CONTROLLER_IMAGE_NAME}-${ARCH}:$(TAG) $(TEMP_DIR)/rootfs
 
 .PHONY: clean-container
 clean-container: ## Removes local image
