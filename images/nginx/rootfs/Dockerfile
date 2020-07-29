@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Copyright (C) 2020, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 FROM container-registry.oracle.com/os/oraclelinux:8-slim AS builder
 
 COPY . /
@@ -55,8 +58,6 @@ RUN microdnf install  \
     pkg-config \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoIP-1.5.0-13.el7.x86_64.rpm \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/GeoIP-devel-1.5.0-13.el7.x86_64.rpm \
-  && rpm -iU https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/gnutls-3.6.8-11.el8_2.x86_64.rpm \
-  && rpm -iU https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/libnghttp2-1.33.0-3.el8_2.1.x86_64.rpm \
   && chmod +x /usr/bin/dumb-init \
   && ln -s /usr/local/nginx/sbin/nginx /sbin/nginx \
   && ln -s /usr/local/lib/libluajit-5.1.so.2 /lib64/libluajit-5.1.so.2 \
