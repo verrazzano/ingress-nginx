@@ -57,7 +57,6 @@ RUN microdnf install  \
     tzdata \
     pkg-config \
   && rpm -U https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/librepo-1.11.0-3.el8_2.x86_64.rpm \
-  && rpm -i https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/python3-librepo-1.11.0-3.el8_2.x86_64.rpm \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoIP-1.5.0-13.el7.x86_64.rpm \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/GeoIP-devel-1.5.0-13.el7.x86_64.rpm \
   && chmod +x /usr/bin/dumb-init \
