@@ -15,7 +15,7 @@
 # Copyright (C) 2020, Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-FROM container-registry.oracle.com/os/oraclelinux:8-slim@sha256:f8326394afd5bec6260f3445b1911ecfd79b5f0fa3333036916a6779d53d9411 AS builder
+FROM container-registry.oracle.com/os/oraclelinux:8-slim@sha256:65343e6b87ef30945a6e418c66ad3efbe6eed7437cf685cf0cdc1cbfb0f2168d AS builder
 
 COPY . /
 COPY oracle-epel-ol8.repo /etc/yum.repos.d/
@@ -24,7 +24,7 @@ COPY oracle-codeready-ol8.repo /etc/yum.repos.d/
 RUN /build.sh
 
 # Use a multi-stage build
-FROM container-registry.oracle.com/os/oraclelinux:8-slim@sha256:f8326394afd5bec6260f3445b1911ecfd79b5f0fa3333036916a6779d53d9411
+FROM container-registry.oracle.com/os/oraclelinux:8-slim@sha256:65343e6b87ef30945a6e418c66ad3efbe6eed7437cf685cf0cdc1cbfb0f2168d
 
 COPY stage-licenses/* /license/
 
