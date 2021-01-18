@@ -80,6 +80,8 @@ RUN microdnf install  \
      libxml2 \
      libcurl \
      systemd-libs \
+  && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoIP-1.5.0-13.el7.x86_64.rpm \
+  && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/GeoIP-devel-1.5.0-13.el7.x86_64.rpm \
   && chmod +x /usr/bin/dumb-init \
   && ln -s /usr/local/nginx/sbin/nginx /sbin/nginx \
   && ln -s /usr/local/lib/libluajit-5.1.so.2 /lib64/libluajit-5.1.so.2 \
