@@ -56,6 +56,28 @@ RUN microdnf install  \
     nano \
     tzdata \
     pkg-config \
+  && yum update -y \
+     pcre2 \
+     python3-pip-wheel \
+     gnutls \
+     libgcrypt \
+     sqlite-libs \
+     platform-python \
+     cyrus-sasl-lib \
+     glibc-common \
+     libsolv \
+     python3-libs \
+     expat \
+     libssh \
+     curl \
+     glibc-minimal-langpack \
+     gnupg2 \
+     libssh-config \
+     glibc \
+     libarchive \
+     libxml2 \
+     libcurl \
+     systemd-libs \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoIP-1.5.0-13.el7.x86_64.rpm \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/GeoIP-devel-1.5.0-13.el7.x86_64.rpm \
   && chmod +x /usr/bin/dumb-init \
