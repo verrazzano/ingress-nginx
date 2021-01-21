@@ -47,39 +47,35 @@ RUN microdnf install  \
     pcre \
     zlib \
     lmdb \
-    curl ca-certificates \
+    curl-7.61.1-14.el8_3.1.x86_64 \
+    ca-certificates \
     patch \
     yajl \
     libyaml \
-    libxml2 \
+    libxml2-2.9.7-8.0.1.el8.x86_64 \
     libmaxminddb \
     nano \
     tzdata \
     pkg-config \
-  && microdnf install yum \
-  && echo "" > /etc/yum/vars/ociregion \
-  && yum update -y \
-     pcre2 \
-     python3-pip-wheel \
-     gnutls \
-     libgcrypt \
-     sqlite-libs \
-     platform-python \
-     cyrus-sasl-lib \
-     glibc-common \
-     libsolv \
-     python3-libs \
-     expat \
-     libssh \
-     curl \
-     glibc-minimal-langpack \
-     gnupg2 \
-     libssh-config \
-     glibc \
-     libarchive \
-     libxml2 \
-     libcurl \
-     systemd-libs \
+    pcre2-10.32-2.el8.x86_64 \
+    python3-pip-wheel-9.0.3-18.el8.noarch \
+    gnutls-3.6.14-7.el8_3.x86_64 \
+    libgcrypt-1.8.5-4.el8.x86_64 \
+    sqlite-libs-3.26.0-11.el8.x86_64 \
+    platform-python-3.6.8-31.0.1.el8.x86_64 \
+    cyrus-sasl-lib-2.1.27-5.el8.x86_64 \
+    glibc-common-2.28-127.0.3.el8.x86_64 \
+    libsolv-0.7.11-1.el8.x86_64 \
+    python3-libs-3.6.8-31.0.1.el8.x86_64 \
+    expat-2.2.5-4.el8.x86_64 \
+    libssh-0.9.4-2.el8.x86_64 \
+    glibc-minimal-langpack-2.28-127.0.3.el8.x86_64 \
+    gnupg2-2.2.20-2.el8.x86_64 \
+    libssh-config-0.9.4-2.el8.noarch \
+    glibc-2.28-127.0.3.el8.x86_64 \
+    libarchive-3.3.2-9.el8.x86_64 \
+    libcurl-7.61.1-14.el8_3.1.x86_64 \
+    systemd-libs-239-41.0.1.el8_3.1.x86_64 \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/GeoIP-1.5.0-13.el7.x86_64.rpm \
   && rpm -i https://yum.oracle.com/repo/OracleLinux/OL7/optional/developer/x86_64/getPackage/GeoIP-devel-1.5.0-13.el7.x86_64.rpm \
   && chmod +x /usr/bin/dumb-init \
