@@ -576,6 +576,7 @@ luarocks install lua-resty-dns 0.21-1
 luarocks install lua-resty-http
 
 # required for JWT verification
+luarocks install lua-resty-openssl
 luarocks install lua-resty-jwt
 
 cd "$BUILD_PATH/lua-resty-upload-0.10"
